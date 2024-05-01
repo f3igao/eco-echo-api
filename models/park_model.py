@@ -31,6 +31,7 @@ class ParkModel(db.Model):
 
     @classmethod
     def find_by_name(cls, name):
+        db.session.commit()
         return cls.query.filter_by(name=name).first()
 
     @classmethod

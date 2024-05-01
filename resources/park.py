@@ -18,8 +18,7 @@ class ParkCollection(MethodView):
     @blp.arguments(ParksParamsSchema, location="query")
     @blp.response(status_code=200, schema=ParkListSchema)
     def get(self, params):
-        ps = ParkModel.find_all()
-        return {"parks": ps}
+        return {"parks": ParkModel.find_all()}
         # sorted_parks = sorted(parks, key=lambda park: park[params["order_by"].value], reverse=params["order"] == SortDirectionEnum.desc)
         # return {"parks": sorted_parks}
 

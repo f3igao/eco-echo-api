@@ -5,6 +5,7 @@ from marshmallow import fields, Schema
 from enum import Enum
 
 from mocks.activity_data import activity_data
+from models.state_model import StateModel
 
 blp = Blueprint("state", "state", url_prefix="/states", description="State API")
 
@@ -33,6 +34,7 @@ class UpdateStateSchema(Schema):
 class StateSchema(Schema):
     state_id = fields.Int()
     name = fields.Str()
+    region = fields.Str()
 
 
 class StateListSchema(Schema):
@@ -44,9 +46,7 @@ class StateCollection(MethodView):
     @blp.arguments(ActivitiesParamsSchema, location="query")
     @blp.response(status_code=200, schema=StateListSchema)
     def get(self, params):
-        # You would typically fetch states from the database here
-        # For now, let's return mock data
-        return {"states": [{"state_id": 1, "name": "State 1"}, {"state_id": 2, "name": "State 2"}]}
+        return {"states": StateModel.find_all()}
 
     @blp.arguments(CreateStateSchema)
     @blp.response(status_code=201, schema=StateSchema)

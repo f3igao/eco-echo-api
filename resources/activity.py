@@ -7,6 +7,7 @@ from marshmallow import fields, Schema
 from enum import Enum
 
 from mocks.activity_data import activity_data
+from models.activity_model import ActivityModel
 
 blp = Blueprint("activity", "activity", url_prefix="/activities", description="Activity API")
 
@@ -59,9 +60,9 @@ class ActivityCollection(MethodView):
     @blp.arguments(ActivitiesParamsSchema, location="query")
     @blp.response(status_code=200, schema=ActivityListSchema)
     def get(self, params):
-        sorted_activities = sorted(activity_data, key=lambda activity: activity[params["order_by"]],
-                                   reverse=params["order"] == SortDirectionEnum.desc)
-        return {"activities": sorted_activities}
+        # sorted_activities = sorted(activity_data, key=lambda activity: activity[params["order_by"]],
+        #                            reverse=params["order"] == SortDirectionEnum.desc)
+        return {"activities": ActivityModel.find_all()}
 
     @blp.arguments(CreateActivitySchema)
     @blp.response(status_code=201, schema=ActivitySchema)
