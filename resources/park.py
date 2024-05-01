@@ -3,6 +3,8 @@ import uuid
 from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
+
+from models import ParkModel
 from schemas.park import ParksParamsSchema, CreateParkSchema, ParkSchema, ParkListSchema, UpdateParkSchema
 from schemas.sort import  SortDirectionEnum
 
@@ -12,12 +14,14 @@ blp = Blueprint("park", "park", url_prefix="/", description="Park API")
 
 
 @blp.route("/parks")
-class TodoCollection(MethodView):
+class ParkCollection(MethodView):
     @blp.arguments(ParksParamsSchema, location="query")
     @blp.response(status_code=200, schema=ParkListSchema)
     def get(self, params):
-        sorted_parks = sorted(parks, key=lambda park: park[params["order_by"].value], reverse=params["order"] == SortDirectionEnum.desc)
-        return {"parks": sorted_parks}
+        ps = ParkModel.find_all()
+        return {"parks": ps}
+        # sorted_parks = sorted(parks, key=lambda park: park[params["order_by"].value], reverse=params["order"] == SortDirectionEnum.desc)
+        # return {"parks": sorted_parks}
 
     @blp.arguments(CreateParkSchema)
     @blp.response(status_code=201, schema=ParkSchema)
@@ -36,9 +40,12 @@ class TodoCollection(MethodView):
 
 
 @blp.route("/parks/<uuid:park_id>")
-class TodoPark(MethodView):
+class Park(MethodView):
     @blp.response(status_code=200, schema=ParkSchema)
     def get(self, park_id):
+        # park = ParkModel.find_by_name(name)
+        # if park:
+        #     return park
         for park in parks:
             if park["id"] == park_id:
                 return park

@@ -6,7 +6,7 @@ from flask_smorest import Blueprint
 from marshmallow import fields, Schema
 from enum import Enum
 
-from mocks.activity_data import activity_data as activities
+from mocks.activity_data import activity_data
 
 blp = Blueprint("activity", "activity", url_prefix="/activities", description="Activity API")
 
@@ -59,15 +59,15 @@ class ActivityCollection(MethodView):
     @blp.arguments(ActivitiesParamsSchema, location="query")
     @blp.response(status_code=200, schema=ActivityListSchema)
     def get(self, params):
-        sorted_activities = sorted(activities, key=lambda activity: activity[params["order_by"]],
+        sorted_activities = sorted(activity_data, key=lambda activity: activity[params["order_by"]],
                                    reverse=params["order"] == SortDirectionEnum.desc)
         return {"activities": sorted_activities}
 
     @blp.arguments(CreateActivitySchema)
     @blp.response(status_code=201, schema=ActivitySchema)
     def post(self, activity):
-        activity["activity_id"] = len(activities) + 1
-        activities.append(activity)
+        activity["activity_id"] = len(activity_data) + 1
+        activity_data.append(activity)
         return activity
 
 
@@ -75,7 +75,7 @@ class ActivityCollection(MethodView):
 class ActivityItem(MethodView):
     @blp.response(status_code=200, schema=ActivitySchema)
     def get(self, activity_id):
-        for activity in activities:
+        for activity in activity_data:
             if activity["activity_id"] == activity_id:
                 return activity
         abort(404, message=f"Activity with ID {activity_id} not found")
@@ -83,7 +83,7 @@ class ActivityItem(MethodView):
     @blp.arguments(UpdateActivitySchema)
     @blp.response(status_code=200, schema=ActivitySchema)
     def put(self, payload, activity_id):
-        for activity in activities:
+        for activity in activity_data:
             if activity["activity_id"] == activity_id:
                 activity.update(payload)
                 return activity
@@ -91,8 +91,8 @@ class ActivityItem(MethodView):
 
     @blp.response(status_code=204)
     def delete(self, activity_id):
-        for index, activity in enumerate(activities):
+        for index, activity in enumerate(activity_data):
             if activity["activity_id"] == activity_id:
-                activities.pop(index)
+                activity_data.pop(index)
                 return
 
