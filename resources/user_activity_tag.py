@@ -1,28 +1,14 @@
-import uuid
 from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from marshmallow import fields, Schema
 
 from models.user_activity_tag_model import UserActivityTagModel
+from schemas.user_activity_tag_schema import CreateUserActivityTagSchema, UserActivityTagSchema, \
+    UserActivityTagListSchema
 
 blp = Blueprint("user_activity_tag", "user_activity_tag", url_prefix="/user_activity_tags",
                 description="User Activity Tag API")
 
-
-class CreateUserActivityTagSchema(Schema):
-    user_id = fields.Int(required=True)
-    activity_review_id = fields.Int(required=True)
-
-
-class UserActivityTagSchema(Schema):
-    user_activity_tag_id = fields.Int()
-    user_id = fields.Int()
-    activity_review_id = fields.Int()
-
-
-class UserActivityTagListSchema(Schema):
-    user_activity_tags = fields.List(fields.Nested(UserActivityTagSchema()))
 
 
 @blp.route("")

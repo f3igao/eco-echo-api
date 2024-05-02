@@ -1,48 +1,12 @@
 import uuid
-from flask import abort
+
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from marshmallow import fields, Schema
+
+from schemas.activity_review_schema import ActivityReviewListSchema, ActivityReviewSchema, CreateActivityReviewSchema, \
+    UpdateActivityReviewSchema
 
 blp = Blueprint("activity_review", "activity_review", url_prefix="/activity_reviews", description="Activity Review API")
-
-
-class CreateActivityReviewSchema(Schema):
-    activity_id = fields.Int(required=True)
-    user_id = fields.Int(required=True)
-    rating = fields.Decimal(required=True)
-    comment = fields.Str(required=True)
-    media_url = fields.Str()
-    is_private = fields.Boolean(required=True)
-    created_at = fields.DateTime(required=True)
-    updated_at = fields.DateTime(required=True)
-
-
-class UpdateActivityReviewSchema(Schema):
-    activity_id = fields.Int()
-    user_id = fields.Int()
-    rating = fields.Decimal()
-    comment = fields.Str()
-    media_url = fields.Str()
-    is_private = fields.Boolean()
-    created_at = fields.DateTime()
-    updated_at = fields.DateTime()
-
-
-class ActivityReviewSchema(Schema):
-    activity_review_id = fields.Int()
-    activity_id = fields.Int()
-    user_id = fields.Int()
-    rating = fields.Decimal()
-    comment = fields.Str()
-    media_url = fields.Str()
-    is_private = fields.Boolean()
-    created_at = fields.DateTime()
-    updated_at = fields.DateTime()
-
-
-class ActivityReviewListSchema(Schema):
-    activity_reviews = fields.List(fields.Nested(ActivityReviewSchema()))
 
 
 @blp.route("")

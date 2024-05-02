@@ -2,9 +2,9 @@ import enum
 
 
 class SortByEnum(enum.Enum):
-    task = "task"
-    created = "created"
+    created_at = "created_at"
     established_date = "established_date"
+    name = "name"
 
 
 class SortDirectionEnum(enum.Enum):

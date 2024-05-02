@@ -4,48 +4,10 @@ from flask.views import MethodView
 from flask_smorest import Blueprint
 from marshmallow import fields, Schema
 
+from schemas.park_review_schema import ParkReviewSchema, CreateParkReviewSchema, ParkReviewListSchema, \
+    UpdateParkReviewSchema
+
 blp = Blueprint("park_review", "park_review", url_prefix="/park_reviews", description="Park Review API")
-
-
-class CreateParkReviewSchema(Schema):
-    park_id = fields.Int(required=True)
-    user_id = fields.Int(required=True)
-    rating = fields.Decimal(required=True)
-    visit_date = fields.Date(required=True)
-    comment = fields.Str(required=True)
-    media_url = fields.Str()
-    is_private = fields.Boolean(required=True)
-    created_at = fields.DateTime(required=True)
-    updated_at = fields.DateTime(required=True)
-
-
-class UpdateParkReviewSchema(Schema):
-    park_id = fields.Int()
-    user_id = fields.Int()
-    rating = fields.Decimal()
-    visit_date = fields.Date()
-    comment = fields.Str()
-    media_url = fields.Str()
-    is_private = fields.Boolean()
-    created_at = fields.DateTime()
-    updated_at = fields.DateTime()
-
-
-class ParkReviewSchema(Schema):
-    park_review_id = fields.Int()
-    park_id = fields.Int()
-    user_id = fields.Int()
-    rating = fields.Decimal()
-    visit_date = fields.Date()
-    comment = fields.Str()
-    media_url = fields.Str()
-    is_private = fields.Boolean()
-    created_at = fields.DateTime()
-    updated_at = fields.DateTime()
-
-
-class ParkReviewListSchema(Schema):
-    park_reviews = fields.List(fields.Nested(ParkReviewSchema()))
 
 
 @blp.route("")

@@ -17,7 +17,6 @@ class ParkReviewModel(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
-    park = db.relationship("ParkModel", back_populates="park_reviews")
     user = db.relationship("UserModel", back_populates="park_reviews")
 
     def json(self):

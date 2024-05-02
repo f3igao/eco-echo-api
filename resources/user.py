@@ -1,40 +1,12 @@
 import uuid
+
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from marshmallow import fields, Schema
 
 from models.user_model import UserModel
+from schemas.user_schema import CreateUserSchema, UserSchema, UserListSchema, UpdateUserSchema
 
 blp = Blueprint("user", "user", url_prefix="/users", description="User API")
-
-
-class CreateUserSchema(Schema):
-    name = fields.Str(required=True)
-    email = fields.Email(required=True)
-    password = fields.Str(required=True)
-    created_at = fields.DateTime(required=True)
-    updated_at = fields.DateTime(required=True)
-
-
-class UpdateUserSchema(Schema):
-    name = fields.Str()
-    email = fields.Email()
-    password = fields.Str()
-    created_at = fields.DateTime()
-    updated_at = fields.DateTime()
-
-
-class UserSchema(Schema):
-    user_id = fields.Int()
-    name = fields.Str()
-    email = fields.Email()
-    password = fields.Str()
-    created_at = fields.DateTime()
-    updated_at = fields.DateTime()
-
-
-class UserListSchema(Schema):
-    users = fields.List(fields.Nested(UserSchema()))
 
 
 @blp.route("")

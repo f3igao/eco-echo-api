@@ -1,6 +1,6 @@
 from marshmallow import fields, Schema
 
-from schemas.sort import SortByEnum, SortDirectionEnum
+from schemas.sort_schema import SortByEnum, SortDirectionEnum
 
 
 class CreateParkSchema(Schema):
@@ -15,10 +15,12 @@ class CreateParkSchema(Schema):
 
 class UpdateParkSchema(CreateParkSchema):
     visitor_count = fields.Number()
+    updated_at = fields.DateTime()
 
 
 class ParkSchema(UpdateParkSchema):
-    id = fields.UUID()
+    park_id = fields.UUID()
+    created_at = fields.DateTime()
 
 
 class ParkListSchema(Schema):

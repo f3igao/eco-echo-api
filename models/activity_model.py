@@ -16,6 +16,7 @@ class ActivityModel(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
+    users = db.relationship("UserModel", secondary="activity_review", back_populates="activities")
     park = db.relationship("ParkModel", back_populates="activities")
 
     def json(self):

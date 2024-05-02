@@ -1,6 +1,8 @@
 from db import db
 from datetime import datetime, timezone
 
+from models.park_model import ParkModel
+
 
 class StateModel(db.Model):
     __tablename__ = "state"
@@ -12,7 +14,7 @@ class StateModel(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
-    # parks = db.relationship("ParkModel", back_populates="state", secondary="park_state")
+    # parks = db.relationship("ParkModel", secondary="park_state", back_populates="states")
 
     def json(self):
         return {

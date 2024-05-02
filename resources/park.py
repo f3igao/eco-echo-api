@@ -2,9 +2,9 @@ import uuid
 from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from schemas.park import ParksParamsSchema, CreateParkSchema, ParkSchema, ParkListSchema, UpdateParkSchema
+from schemas.park_schema import ParksParamsSchema, CreateParkSchema, ParkSchema, ParkListSchema, UpdateParkSchema
 from models import ParkModel
-from schemas.sort import SortDirectionEnum
+from schemas.sort_schema import SortDirectionEnum
 
 blp = Blueprint("park", "park", url_prefix="/", description="Park API")
 

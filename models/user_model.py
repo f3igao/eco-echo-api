@@ -1,4 +1,7 @@
 from db import db
+from models.activity_model import ActivityModel
+from models.activity_review_model import ActivityReviewModel
+from models.park_review_model import ParkReviewModel
 
 
 class UserModel(db.Model):
@@ -11,8 +14,10 @@ class UserModel(db.Model):
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
 
-    # activity_reviews = db.relationship("ActivityReviewModel", back_populates="user")
-    # park_reviews = db.relationship("ParkReviewModel", back_populates="user")
+    parks = db.relationship("ParkModel", secondary="park_review", back_populates="users")
+    park_reviews = db.relationship("ParkReviewModel", back_populates="user")
+    activities = db.relationship("ActivityModel", secondary="activity_review", back_populates="users")
+    activity_reviews = db.relationship("ActivityReviewModel", back_populates="user")
 
     def json(self):
         return {
