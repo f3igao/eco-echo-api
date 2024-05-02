@@ -1,4 +1,7 @@
+from datetime import datetime, timezone
+
 from db import db
+
 
 class ParkStateModel(db.Model):
     __tablename__ = "park_state"
@@ -6,16 +9,20 @@ class ParkStateModel(db.Model):
     park_state_id = db.Column(db.Integer, primary_key=True)
     park_id = db.Column(db.Integer, db.ForeignKey('park.park_id'), nullable=False)
     state_id = db.Column(db.Integer, db.ForeignKey('state.state_id'), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
+    updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
     def json(self):
         return {
             "park_state_id": self.park_state_id,
             "park_id": self.park_id,
-            "state_id": self.state_id
+            "state_id": self.state_id,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat()
         }
 
     @classmethod
-    def find_by_park_id_and_state_id(cls, park_id, state_id):
+    def find_by_id(cls, park_id, state_id):
         return cls.query.filter_by(park_id=park_id, state_id=state_id).first()
 
     @classmethod

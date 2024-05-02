@@ -6,6 +6,7 @@ from marshmallow import fields, Schema
 
 blp = Blueprint("park_review", "park_review", url_prefix="/park_reviews", description="Park Review API")
 
+
 class CreateParkReviewSchema(Schema):
     park_id = fields.Int(required=True)
     user_id = fields.Int(required=True)
@@ -14,8 +15,9 @@ class CreateParkReviewSchema(Schema):
     comment = fields.Str(required=True)
     media_url = fields.Str()
     is_private = fields.Boolean(required=True)
-    timestamp = fields.DateTime(required=True)
-    last_modified = fields.DateTime(required=True)
+    created_at = fields.DateTime(required=True)
+    updated_at = fields.DateTime(required=True)
+
 
 class UpdateParkReviewSchema(Schema):
     park_id = fields.Int()
@@ -25,8 +27,9 @@ class UpdateParkReviewSchema(Schema):
     comment = fields.Str()
     media_url = fields.Str()
     is_private = fields.Boolean()
-    timestamp = fields.DateTime()
-    last_modified = fields.DateTime()
+    created_at = fields.DateTime()
+    updated_at = fields.DateTime()
+
 
 class ParkReviewSchema(Schema):
     park_review_id = fields.Int()
@@ -37,11 +40,13 @@ class ParkReviewSchema(Schema):
     comment = fields.Str()
     media_url = fields.Str()
     is_private = fields.Boolean()
-    timestamp = fields.DateTime()
-    last_modified = fields.DateTime()
+    created_at = fields.DateTime()
+    updated_at = fields.DateTime()
+
 
 class ParkReviewListSchema(Schema):
     park_reviews = fields.List(fields.Nested(ParkReviewSchema()))
+
 
 @blp.route("")
 class ParkReviewCollection(MethodView):
@@ -58,6 +63,7 @@ class ParkReviewCollection(MethodView):
         park_review["park_review_id"] = park_review_id
         # Your logic to create a new park review
         return park_review
+
 
 @blp.route("/<int:park_review_id>")
 class ParkReviewItem(MethodView):

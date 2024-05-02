@@ -1,3 +1,5 @@
+from datetime import datetime, timezone
+
 from db import db
 
 
@@ -13,8 +15,11 @@ class ParkModel(db.Model):
     visitor_count = db.Column(db.Integer, nullable=False)
     website = db.Column(db.String(255), nullable=False)
     entrance_info = db.Column(db.String(255), nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
+    updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
     # states = db.relationship("StateModel", back_populates="park", secondary="park_state")
+    activities = db.relationship("ActivityModel", back_populates="park")
 
     def json(self):
         return {
@@ -27,7 +32,13 @@ class ParkModel(db.Model):
             "visitor_count": self.visitor_count,
             "website": self.website,
             "entrance_info": self.entrance_info,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat()
         }
+
+    @classmethod
+    def find_by_id(cls, park_id):
+        return cls.query.filter_by(park_id=park_id).first()
 
     @classmethod
     def find_by_name(cls, name):

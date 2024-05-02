@@ -1,14 +1,10 @@
 import uuid
-
 from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
-
-from models import ParkModel
 from schemas.park import ParksParamsSchema, CreateParkSchema, ParkSchema, ParkListSchema, UpdateParkSchema
-from schemas.sort import  SortDirectionEnum
-
-from mocks.park_data import park_data as parks
+from models import ParkModel
+from schemas.sort import SortDirectionEnum
 
 blp = Blueprint("park", "park", url_prefix="/", description="Park API")
 
@@ -18,52 +14,39 @@ class ParkCollection(MethodView):
     @blp.arguments(ParksParamsSchema, location="query")
     @blp.response(status_code=200, schema=ParkListSchema)
     def get(self, params):
-        return {"parks": ParkModel.find_all()}
-        # sorted_parks = sorted(parks, key=lambda park: park[params["order_by"].value], reverse=params["order"] == SortDirectionEnum.desc)
-        # return {"parks": sorted_parks}
+        parks = ParkModel.find_all()
+        return {"parks": parks}
 
     @blp.arguments(CreateParkSchema)
     @blp.response(status_code=201, schema=ParkSchema)
     def post(self, park):
-        park["id"] = uuid.uuid4()
-        # park["location"] =
-        # park["description"] =
-        # park["established_date"] =
-        # park["size"] =
-        # park["visitor_count"] =
-        # park["website"] =
-        # park["entrance_info"] =
-        print("new park:", park)
-        parks.append(park)
-        return park
+        new_park = ParkModel(**park)
+        new_park.save_to_db()
+        return new_park.json(), 201
 
 
 @blp.route("/parks/<uuid:park_id>")
 class Park(MethodView):
     @blp.response(status_code=200, schema=ParkSchema)
     def get(self, park_id):
-        # park = ParkModel.find_by_name(name)
-        # if park:
-        #     return park
-        for park in parks:
-            if park["id"] == park_id:
-                return park
-        abort(404, message=f"Park with id {park_id} not found")
+        park = ParkModel.find_by_id(park_id)
+        if not park:
+            abort(404, message=f"Park with id {park_id} not found")
+        return park.json()
 
     @blp.arguments(UpdateParkSchema)
     @blp.response(status_code=200, schema=ParkSchema)
     def put(self, payload, park_id):
-        for park in parks:
-            if park["id"] == park_id:
-                park["completed"] = payload["completed"]
-                park["park"] = payload["park"]
-                return park
-        abort(404, message=f"Park with id {park_id} not found")
+        park = ParkModel.find_by_id(park_id)
+        if not park:
+            abort(404, message=f"Park with id {park_id} not found")
+        park.update(payload)
+        return park.json()
 
     @blp.response(status_code=204)
     def delete(self, park_id):
-        for index, park in enumerate(parks):
-            if park["id"] == park_id:
-                parks.pop(index)
-                return
-        abort(404, message=f"Park with id {park_id} not found")
+        park = ParkModel.find_by_id(park_id)
+        if not park:
+            abort(404, message=f"Park with id {park_id} not found")
+        park.delete_from_db()
+        return

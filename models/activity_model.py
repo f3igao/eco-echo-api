@@ -1,4 +1,7 @@
+from datetime import datetime, timezone
+
 from db import db
+
 
 class ActivityModel(db.Model):
     __tablename__ = "activity"
@@ -8,10 +11,12 @@ class ActivityModel(db.Model):
     name = db.Column(db.String(255), nullable=False)
     description = db.Column(db.Text, nullable=False)
     duration = db.Column(db.Integer, nullable=False)
-    difficulty = db.Column(db.Float, nullable=False)
+    difficulty = db.Column(db.Float(precision=2), nullable=False)
     require_special_equipment = db.Column(db.Boolean, nullable=False)
+    created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
+    updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
-    # park = db.relationship("ParkModel", back_populates="activities")
+    park = db.relationship("ParkModel", back_populates="activities")
 
     def json(self):
         return {
@@ -21,8 +26,14 @@ class ActivityModel(db.Model):
             "description": self.description,
             "duration": self.duration,
             "difficulty": self.difficulty,
-            "require_special_equipment": self.require_special_equipment
+            "require_special_equipment": self.require_special_equipment,
+            "created_at": self.created_at.isoformat(),
+            "updated_at": self.updated_at.isoformat()
         }
+
+    @classmethod
+    def find_by_id(cls, activity_id):
+        return cls.query.filter_by(activity_id=activity_id).first()
 
     @classmethod
     def find_by_name(cls, name):

@@ -3,29 +3,34 @@ from flask.views import MethodView
 from flask_smorest import Blueprint
 from marshmallow import fields, Schema
 
+from models.user_model import UserModel
+
 blp = Blueprint("user", "user", url_prefix="/users", description="User API")
 
 
 class CreateUserSchema(Schema):
+    name = fields.Str(required=True)
     email = fields.Email(required=True)
     password = fields.Str(required=True)
-    timestamp = fields.DateTime(required=True)
-    last_modified = fields.DateTime(required=True)
+    created_at = fields.DateTime(required=True)
+    updated_at = fields.DateTime(required=True)
 
 
 class UpdateUserSchema(Schema):
+    name = fields.Str()
     email = fields.Email()
     password = fields.Str()
-    timestamp = fields.DateTime()
-    last_modified = fields.DateTime()
+    created_at = fields.DateTime()
+    updated_at = fields.DateTime()
 
 
 class UserSchema(Schema):
     user_id = fields.Int()
+    name = fields.Str()
     email = fields.Email()
     password = fields.Str()
-    timestamp = fields.DateTime()
-    last_modified = fields.DateTime()
+    created_at = fields.DateTime()
+    updated_at = fields.DateTime()
 
 
 class UserListSchema(Schema):
@@ -36,8 +41,7 @@ class UserListSchema(Schema):
 class UserCollection(MethodView):
     @blp.response(status_code=200, schema=UserListSchema)
     def get(self):
-        # Your logic to fetch users
-        users = []
+        users = UserModel.query.all()
         return {"users": users}
 
     @blp.arguments(CreateUserSchema)
@@ -53,18 +57,20 @@ class UserCollection(MethodView):
 class UserItem(MethodView):
     @blp.response(status_code=200, schema=UserSchema)
     def get(self, user_id):
-        # Your logic to fetch a user by ID
-        user = {}
-        return user
+        user = UserModel.find_by_id(user_id)
+        if not user:
+            return {"message": "User not found"}, 404
+        return user.json()
 
     @blp.arguments(UpdateUserSchema)
     @blp.response(status_code=200, schema=UserSchema)
     def put(self, payload, user_id):
+        user = UserModel.find_by_id(user_id)
+        if not user:
+            return {"message": "User not found"}, 404
         # Your logic to update a user by ID
-        user = {}
-        return user
+        return user.json()
 
     @blp.response(status_code=204)
     def delete(self, user_id):
         pass
-

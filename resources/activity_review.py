@@ -6,6 +6,7 @@ from marshmallow import fields, Schema
 
 blp = Blueprint("activity_review", "activity_review", url_prefix="/activity_reviews", description="Activity Review API")
 
+
 class CreateActivityReviewSchema(Schema):
     activity_id = fields.Int(required=True)
     user_id = fields.Int(required=True)
@@ -13,8 +14,9 @@ class CreateActivityReviewSchema(Schema):
     comment = fields.Str(required=True)
     media_url = fields.Str()
     is_private = fields.Boolean(required=True)
-    timestamp = fields.DateTime(required=True)
-    last_modified = fields.DateTime(required=True)
+    created_at = fields.DateTime(required=True)
+    updated_at = fields.DateTime(required=True)
+
 
 class UpdateActivityReviewSchema(Schema):
     activity_id = fields.Int()
@@ -23,8 +25,9 @@ class UpdateActivityReviewSchema(Schema):
     comment = fields.Str()
     media_url = fields.Str()
     is_private = fields.Boolean()
-    timestamp = fields.DateTime()
-    last_modified = fields.DateTime()
+    created_at = fields.DateTime()
+    updated_at = fields.DateTime()
+
 
 class ActivityReviewSchema(Schema):
     activity_review_id = fields.Int()
@@ -34,11 +37,13 @@ class ActivityReviewSchema(Schema):
     comment = fields.Str()
     media_url = fields.Str()
     is_private = fields.Boolean()
-    timestamp = fields.DateTime()
-    last_modified = fields.DateTime()
+    created_at = fields.DateTime()
+    updated_at = fields.DateTime()
+
 
 class ActivityReviewListSchema(Schema):
     activity_reviews = fields.List(fields.Nested(ActivityReviewSchema()))
+
 
 @blp.route("")
 class ActivityReviewCollection(MethodView):
@@ -55,6 +60,7 @@ class ActivityReviewCollection(MethodView):
         activity_review["activity_review_id"] = activity_review_id
         # Your logic to create a new activity review
         return activity_review
+
 
 @blp.route("/<int:activity_review_id>")
 class ActivityReviewItem(MethodView):
