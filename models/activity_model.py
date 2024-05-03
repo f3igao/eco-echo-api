@@ -18,6 +18,7 @@ class ActivityModel(db.Model):
 
     users = db.relationship("UserModel", secondary="activity_review", back_populates="activities")
     park = db.relationship("ParkModel", back_populates="activities")
+    activity_reviews = db.relationship("ActivityReviewModel", back_populates="activity")
 
     def json(self):
         return {

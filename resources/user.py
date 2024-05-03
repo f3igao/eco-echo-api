@@ -1,9 +1,11 @@
 import uuid
-
+from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
+from marshmallow import fields, Schema
 
 from models.user_model import UserModel
+from schemas.sort_schema import SortDirectionEnum
 from schemas.user_schema import CreateUserSchema, UserSchema, UserListSchema, UpdateUserSchema
 
 blp = Blueprint("user", "user", url_prefix="/users", description="User API")
@@ -18,10 +20,15 @@ class UserCollection(MethodView):
 
     @blp.arguments(CreateUserSchema)
     @blp.response(status_code=201, schema=UserSchema)
-    def post(self, user):
-        user_id = uuid.uuid4().int  # Generate a unique ID for the user
-        user["user_id"] = user_id
-        # Your logic to create a new user
+    def post(self, user_data):
+        user = UserModel(
+            name=user_data["name"],
+            email=user_data["email"],
+            password=user_data["password"],
+            created_at=user_data.get("created_at"),
+            updated_at=user_data.get("updated_at")
+        )
+        user.save_to_db()
         return user
 
 
@@ -31,18 +38,22 @@ class UserItem(MethodView):
     def get(self, user_id):
         user = UserModel.find_by_id(user_id)
         if not user:
-            return {"message": "User not found"}, 404
-        return user.json()
+            abort(404, message="User not found")
+        return user
 
     @blp.arguments(UpdateUserSchema)
     @blp.response(status_code=200, schema=UserSchema)
     def put(self, payload, user_id):
         user = UserModel.find_by_id(user_id)
         if not user:
-            return {"message": "User not found"}, 404
-        # Your logic to update a user by ID
-        return user.json()
+            abort(404, message="User not found")
+        user.update_from_dict(payload)
+        return user
 
     @blp.response(status_code=204)
     def delete(self, user_id):
-        pass
+        user = UserModel.find_by_id(user_id)
+        if not user:
+            abort(404, message="User not found")
+        user.delete_from_db()
+        return

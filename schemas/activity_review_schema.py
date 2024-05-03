@@ -3,6 +3,7 @@ from marshmallow import fields, Schema
 
 class CreateActivityReviewSchema(Schema):
     user_id = fields.Int(required=True)
+    activity_id = fields.Int()
     rating = fields.Decimal(required=True)
     comment = fields.Str(required=True)
     media_url = fields.Str()
@@ -14,7 +15,6 @@ class UpdateActivityReviewSchema(CreateActivityReviewSchema):
 
 
 class ActivityReviewSchema(UpdateActivityReviewSchema):
-    activity_id = fields.Int()
     created_at = fields.DateTime()
 
 

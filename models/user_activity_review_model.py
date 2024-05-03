@@ -14,7 +14,6 @@ class UserActivityReviewModel(db.Model):
     updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
     # user = db.relationship("UserModel", back_populates="user_activity_reviews")
-    # activity_review = db.relationship("ActivityReviewModel", back_populates="user_activity_reviews")
 
     def json(self):
         return {

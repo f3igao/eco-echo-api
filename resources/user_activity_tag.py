@@ -10,7 +10,6 @@ blp = Blueprint("user_activity_tag", "user_activity_tag", url_prefix="/user_acti
                 description="User Activity Tag API")
 
 
-
 @blp.route("")
 class UserActivityTagCollection(MethodView):
     @blp.response(status_code=200, schema=UserActivityTagListSchema)
@@ -21,7 +20,10 @@ class UserActivityTagCollection(MethodView):
     @blp.arguments(CreateUserActivityTagSchema)
     @blp.response(status_code=201, schema=UserActivityTagSchema)
     def post(self, user_activity_tag):
-        new_user_activity_tag = UserActivityTagModel(**user_activity_tag)
+        new_user_activity_tag = UserActivityTagModel(
+            user_id=user_activity_tag["user_id"],
+            activity_review_id=user_activity_tag["activity_review_id"],
+        )
         new_user_activity_tag.save_to_db()
         return new_user_activity_tag.json(), 201
 

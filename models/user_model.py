@@ -1,3 +1,5 @@
+import uuid
+
 from db import db
 
 
@@ -11,10 +13,11 @@ class UserModel(db.Model):
     created_at = db.Column(db.DateTime, nullable=False)
     updated_at = db.Column(db.DateTime, nullable=False)
 
-    parks = db.relationship("ParkModel", secondary="park_review", back_populates="users")
     park_reviews = db.relationship("ParkReviewModel", back_populates="user")
-    activities = db.relationship("ActivityModel", secondary="activity_review", back_populates="users")
     activity_reviews = db.relationship("ActivityReviewModel", back_populates="user")
+    parks = db.relationship("ParkModel", secondary="park_review", back_populates="users")
+    activities = db.relationship("ActivityModel", secondary="activity_review", back_populates="users")
+
 
     def json(self):
         return {

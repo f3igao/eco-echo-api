@@ -18,7 +18,6 @@ class UpdateStateSchema(CreateStateSchema):
     updated_at = fields.DateTime()
 
 
-
 class StateSchema(UpdateStateSchema):
     state_id = fields.Int()
     created_at = fields.DateTime()
@@ -26,4 +25,3 @@ class StateSchema(UpdateStateSchema):
 
 class StateListSchema(Schema):
     states = fields.List(fields.Nested(StateSchema()))
-

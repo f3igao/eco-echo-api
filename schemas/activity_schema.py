@@ -9,6 +9,7 @@ class ActivitiesParamsSchema(Schema):
 
 
 class CreateActivitySchema(Schema):
+    park_id = fields.Integer()
     name = fields.Str(required=True)
     description = fields.Str(required=True)
     duration = fields.Int(required=True)
@@ -22,7 +23,6 @@ class UpdateActivitySchema(CreateActivitySchema):
 
 class ActivitySchema(UpdateActivitySchema):
     activity_id = fields.UUID()
-    park_id = fields.Integer()
     created_at = fields.DateTime()
 
 

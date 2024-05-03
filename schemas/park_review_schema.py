@@ -17,7 +17,6 @@ class UpdateParkReviewSchema(CreateParkReviewSchema):
 
 class ParkReviewSchema(UpdateParkReviewSchema):
     park_review_id = fields.Int()
-    updated_at = fields.DateTime()
 
 
 class ParkReviewListSchema(Schema):

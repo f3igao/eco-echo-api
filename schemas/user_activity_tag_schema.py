@@ -5,6 +5,7 @@ class CreateUserActivityTagSchema(Schema):
     user_id = fields.Int(required=True)
     activity_review_id = fields.Int(required=True)
 
+
 class UpdateUserActivityTagSchema(CreateUserActivityTagSchema):
     updated_at = fields.DateTime()
 
@@ -16,4 +17,3 @@ class UserActivityTagSchema(UpdateUserActivityTagSchema):
 
 class UserActivityTagListSchema(Schema):
     user_activity_tags = fields.List(fields.Nested(UserActivityTagSchema()))
-

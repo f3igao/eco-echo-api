@@ -11,9 +11,8 @@ blp = Blueprint("park", "park", url_prefix="/", description="Park API")
 
 @blp.route("/parks")
 class ParkCollection(MethodView):
-    @blp.arguments(ParksParamsSchema, location="query")
     @blp.response(status_code=200, schema=ParkListSchema)
-    def get(self, params):
+    def get(self):
         parks = ParkModel.find_all()
         return {"parks": parks}
 
