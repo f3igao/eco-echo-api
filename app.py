@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_smorest import Api
+from flask_cors import CORS
 
 from config import APIConfig
 from db import db
@@ -12,9 +13,10 @@ from resources.user import blp as UserBlueprint
 from resources.user_activity_review import blp as UserActivityReviewBlueprint
 from resources.user_activity_tag import blp as UserActivityTagBlueprint
 
-
 app = Flask(__name__)
 app.config.from_object(APIConfig)
+
+cors = CORS(app, origins="http://localhost:5173")
 
 db.init_app(app)
 api = Api(app)
@@ -27,4 +29,3 @@ api.register_blueprint(StateBlueprint)
 api.register_blueprint(UserBlueprint)
 api.register_blueprint(UserActivityReviewBlueprint)
 api.register_blueprint(UserActivityTagBlueprint)
-
