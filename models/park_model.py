@@ -1,7 +1,6 @@
 from datetime import datetime, timezone
 
 from db import db
-# from models.state_model import StateModel
 
 
 class ParkModel(db.Model):

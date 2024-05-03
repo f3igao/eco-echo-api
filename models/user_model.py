@@ -1,7 +1,4 @@
 from db import db
-from models.activity_model import ActivityModel
-from models.activity_review_model import ActivityReviewModel
-from models.park_review_model import ParkReviewModel
 
 
 class UserModel(db.Model):
@@ -27,6 +24,10 @@ class UserModel(db.Model):
             "created_at": self.created_at.isoformat(),
             "updated_at": self.updated_at.isoformat()
         }
+
+    @classmethod
+    def find_by_id(cls, user_id):
+        return cls.query.filter_by(user_id=user_id).first()
 
     @classmethod
     def find_by_email(cls, email):

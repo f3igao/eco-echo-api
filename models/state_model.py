@@ -1,8 +1,6 @@
 from db import db
 from datetime import datetime, timezone
 
-from models.park_model import ParkModel
-
 
 class StateModel(db.Model):
     __tablename__ = "state"
