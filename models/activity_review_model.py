@@ -28,8 +28,8 @@ class ActivityReviewModel(db.Model):
             "comment": self.comment,
             "media_url": self.media_url,
             "is_private": self.is_private,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
         }
 
     @classmethod

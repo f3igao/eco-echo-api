@@ -29,8 +29,8 @@ class ActivityModel(db.Model):
             "duration": self.duration,
             "difficulty": self.difficulty,
             "require_special_equipment": self.require_special_equipment,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
         }
 
     @classmethod
@@ -44,6 +44,15 @@ class ActivityModel(db.Model):
     @classmethod
     def find_all(cls):
         return cls.query.all()
+
+    def update(self, name, description, duration, difficulty, require_special_equipment):
+        self.name = name
+        self.description = description
+        self.duration = duration
+        self.difficulty = difficulty
+        self.require_special_equipment = require_special_equipment
+        self.updated_at = datetime.now(timezone.utc)
+        self.save_to_db()
 
     def save_to_db(self):
         db.session.add(self)

@@ -26,12 +26,12 @@ class ParkReviewModel(db.Model):
             "park_id": self.park_id,
             "user_id": self.user_id,
             "rating": self.rating,
-            "visit_date": self.visit_date.isoformat(),
+            "visit_date": self.visit_date,
             "comment": self.comment,
             "media_url": self.media_url,
             "is_private": self.is_private,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
         }
 
     @classmethod

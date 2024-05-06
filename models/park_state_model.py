@@ -17,8 +17,8 @@ class ParkStateModel(db.Model):
             "park_state_id": self.park_state_id,
             "park_id": self.park_id,
             "state_id": self.state_id,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
         }
 
     @classmethod

@@ -55,6 +55,8 @@ class ActivityItem(MethodView):
         activity = ActivityModel.find_by_id(activity_id)
         if not activity:
             abort(404, message=f"Activity with ID {activity_id} not found")
+        print(payload)
+        print("====================")
         activity.update(payload)
         return activity
 

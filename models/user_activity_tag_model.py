@@ -20,8 +20,8 @@ class UserActivityTagModel(db.Model):
             "user_activity_tag_id": self.user_activity_tag_id,
             "user_id": self.user_id,
             "activity_review_id": self.activity_review_id,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
         }
 
     @classmethod

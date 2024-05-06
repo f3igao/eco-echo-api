@@ -1,11 +1,8 @@
-import uuid
 from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from marshmallow import fields, Schema
 
 from models.user_model import UserModel
-from schemas.sort_schema import SortDirectionEnum
 from schemas.user_schema import CreateUserSchema, UserSchema, UserListSchema, UpdateUserSchema
 
 blp = Blueprint("user", "user", url_prefix="/users", description="User API")

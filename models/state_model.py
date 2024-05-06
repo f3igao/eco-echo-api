@@ -20,8 +20,8 @@ class StateModel(db.Model):
             "name": self.name,
             "region": self.region,
             "abbreviation": self.abbreviation,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
         }
 
     @classmethod

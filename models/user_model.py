@@ -24,8 +24,8 @@ class UserModel(db.Model):
             "user_id": self.user_id,
             "name": self.name,
             "email": self.email,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
         }
 
     @classmethod

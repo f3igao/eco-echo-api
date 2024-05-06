@@ -1,10 +1,10 @@
-import uuid
+from flask import abort
 from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from schemas.park_schema import ParksParamsSchema, CreateParkSchema, ParkSchema, ParkListSchema, UpdateParkSchema
+
 from models import ParkModel
-from schemas.sort_schema import SortDirectionEnum
+from schemas.park_schema import CreateParkSchema, ParkSchema, ParkListSchema, UpdateParkSchema
 
 blp = Blueprint("park", "park", url_prefix="/", description="Park API")
 
@@ -24,7 +24,7 @@ class ParkCollection(MethodView):
         return new_park.json(), 201
 
 
-@blp.route("/parks/<uuid:park_id>")
+@blp.route("/parks/<int:park_id>")
 class Park(MethodView):
     @blp.response(status_code=200, schema=ParkSchema)
     def get(self, park_id):

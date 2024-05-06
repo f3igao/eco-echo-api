@@ -7,8 +7,8 @@ class CreateParkSchema(Schema):
     name = fields.String()
     location = fields.String()
     description = fields.String()
-    established_date = fields.String()
-    size = fields.String()
+    established_date = fields.DateTime()
+    size = fields.Number()
     website = fields.String()
     entrance_info = fields.String()
 

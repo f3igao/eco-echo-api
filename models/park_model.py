@@ -34,8 +34,8 @@ class ParkModel(db.Model):
             "visitor_count": self.visitor_count,
             "website": self.website,
             "entrance_info": self.entrance_info,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "created_at": self.created_at,
+            "updated_at": self.updated_at,
         }
 
     @classmethod

@@ -21,8 +21,8 @@ class UserActivityReviewModel(db.Model):
             "user_id": self.user_id,
             "activity_review_id": self.activity_review_id,
             "rating": self.rating,
-            "created_at": self.created_at.isoformat(),
-            "updated_at": self.updated_at.isoformat()
+            "created_at": self.created_at,
+            "updated_at": self.updated_at
         }
 
     @classmethod
