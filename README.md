@@ -1,6 +1,6 @@
 # EcoEcho API
 
-Welcome to the EcoEcho API documentation! This API serves as the backend for the EcoEcho platform, a social media platform designed for US National Park enthusiasts. Built with Python Flask and SMOREst, and utilizing Marshmallow for schema validation, this API provides endpoints to manage user data, park information, activity reviews, and more.
+This API serves as the backend for the EcoEcho platform, a social media platform designed for US National Park enthusiasts. Built with Python Flask and SMOREst, and utilizing Marshmallow for schema validation, this API provides endpoints to manage user data, park information, activity reviews, and more.
 
 ## Setup
 
