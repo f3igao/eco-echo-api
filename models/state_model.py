@@ -27,6 +27,7 @@ class StateModel(db.Model):
     @classmethod
     def find_by_id(cls, state_id):
         return cls.query.filter_by(state_id=state_id).first()
+
     @classmethod
     def find_by_name(cls, name):
         return cls.query.filter_by(name=name).first()
