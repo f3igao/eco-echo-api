@@ -34,34 +34,34 @@ Note that the --reload flag enables automatic reloading of the application when 
 
 The EcoEcho API provides the following endpoints:
 
-- **User Endpoints:**
+### User Endpoints:
 - `/api/users`: CRUD operations for managing user accounts.
 - `/api/users/<user_id>`: Retrieve, update, or delete a specific user.
 
-- **Park Endpoints:**
+### Park Endpoints
 - `/api/parks`: CRUD operations for managing park information.
 - `/api/parks/<park_id>`: Retrieve, update, or delete a specific park.
 
-- **Activity Endpoints:**
+### Activity Endpoints
 - `/api/activities`: CRUD operations for managing park activities.
 - `/api/activities/<activity_id>`: Retrieve, update, or delete a specific activity.
 
-- **Review Endpoints:**
+### Review Endpoints
 - `/api/activity_reviews`: CRUD operations for managing activity reviews.
 - `/api/park_reviews`: CRUD operations for managing park reviews.
 - `/api/user_activity_reviews`: CRUD operations for managing user activity reviews.
 - `/api/user_park_reviews`: CRUD operations for managing user park reviews.
 
-- **Wishlist Endpoints:**
+### Wishlist Endpoints
 - `/api/wishlists`: CRUD operations for managing user wishlists.
 
-- **Authentication Endpoints:** (if applicable)
+### Authentication Endpoints [coming soon...]
 - `/api/auth/login`: Endpoint for user authentication and obtaining access tokens.
 - `/api/auth/register`: Endpoint for user registration.
 
-## Authentication
+## Authentication [coming soon...]
 
-If authentication is implemented, the EcoEcho API uses JWT (JSON Web Tokens) for securing endpoints that require user authentication. Users can obtain an access token by logging in or registering through the appropriate authentication endpoints.
+The EcoEcho API will use JWT (JSON Web Tokens) for securing endpoints that require user authentication. Users can obtain an access token by logging in or registering through the appropriate authentication endpoints.
 
 ## Schema Validation
 
