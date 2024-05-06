@@ -67,8 +67,11 @@ The EcoEcho API will use JWT (JSON Web Tokens) for securing endpoints that requi
 
 Marshmallow is utilized for schema validation, ensuring that data sent to the API adheres to predefined schemas. This helps maintain data integrity and consistency throughout the application.
 
+## ER Model
+![EcoEcho ER Model](https://github.com/f3igao/eco-echo-api/assets/22878381/b141381a-7c21-4f78-81be-db56f085099b)
+
+
 ## Contributing
 
 Contributions to the EcoEcho API are welcome! If you find any issues or have suggestions for improvements, please open an issue or submit a pull request on GitHub.
-
-Thank you for using the EcoEcho API! Happy coding and happy exploring! 🌲🏞️
+Thank you for using the EcoEcho API! Happy coding and happy exploring! 🌲�
