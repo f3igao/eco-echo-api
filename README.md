@@ -13,16 +13,16 @@ git clone https://github.com/your/repository.git
 cd eco-echo-api
 ```
 
-1. Install Dependencies:
+2. Install Dependencies:
 
 ```bash
 pip install -r requirements.txt
 ```
 
-`. Database Configuration:
+3. Database Configuration:
 Set up your MySQL database and configure the connection details in config.py.
 
-1. Run the Application:
+4. Run the Application:
 
 ```bash
 flask run --reload
