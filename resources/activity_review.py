@@ -6,7 +6,8 @@ from models.activity_review_model import ActivityReviewModel
 from schemas.activity_review_schema import CreateActivityReviewSchema, UpdateActivityReviewSchema, ActivityReviewSchema, \
     ActivityReviewListSchema
 
-blp = Blueprint("activity_review", "activity_review", url_prefix="/activity_reviews", description="Activity Review API")
+blp = Blueprint("activity_review", "activity_review", url_prefix="/api/activity_reviews",
+                description="Activity Review API")
 
 
 @blp.route("")

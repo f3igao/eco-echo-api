@@ -8,7 +8,7 @@ from schemas.activity_schema import ActivitiesParamsSchema, ActivitySchema, Crea
     ActivityListSchema
 from schemas.sort_schema import SortDirectionEnum
 
-blp = Blueprint("activity", "activity", url_prefix="/activities", description="Activity API")
+blp = Blueprint("activity", "activity", url_prefix="/api/activities", description="Activity API")
 
 
 @blp.route("")

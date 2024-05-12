@@ -7,7 +7,7 @@ from models.park_review_model import ParkReviewModel
 from schemas.park_review_schema import CreateParkReviewSchema, UpdateParkReviewSchema, ParkReviewSchema, \
     ParkReviewListSchema
 
-blp = Blueprint("park_review", "park_review", url_prefix="/park_reviews", description="Park Review API")
+blp = Blueprint("park_review", "park_review", url_prefix="/api/park_reviews", description="Park Review API")
 
 
 @blp.route("")

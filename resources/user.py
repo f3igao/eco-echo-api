@@ -5,7 +5,7 @@ from flask_smorest import Blueprint
 from models.user_model import UserModel
 from schemas.user_schema import CreateUserSchema, UserSchema, UserListSchema, UpdateUserSchema
 
-blp = Blueprint("user", "user", url_prefix="/users", description="User API")
+blp = Blueprint("user", "user", url_prefix="/api/users", description="User API")
 
 
 @blp.route("")

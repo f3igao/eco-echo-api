@@ -6,7 +6,7 @@ from models.user_activity_tag_model import UserActivityTagModel
 from schemas.user_activity_tag_schema import CreateUserActivityTagSchema, UserActivityTagSchema, \
     UserActivityTagListSchema
 
-blp = Blueprint("user_activity_tag", "user_activity_tag", url_prefix="/user_activity_tags",
+blp = Blueprint("user_activity_tag", "user_activity_tag", url_prefix="/api/user_activity_tags",
                 description="User Activity Tag API")
 
 

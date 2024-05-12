@@ -6,10 +6,10 @@ from flask_smorest import Blueprint
 from models import ParkModel
 from schemas.park_schema import CreateParkSchema, ParkSchema, ParkListSchema, UpdateParkSchema
 
-blp = Blueprint("park", "park", url_prefix="/", description="Park API")
+blp = Blueprint("park", "park", url_prefix="/api/parks", description="Park API")
 
 
-@blp.route("/parks")
+@blp.route("")
 class ParkCollection(MethodView):
     @blp.response(status_code=200, schema=ParkListSchema)
     def get(self):

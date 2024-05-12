@@ -5,7 +5,7 @@ from flask_smorest import Blueprint
 from models.state_model import StateModel
 from schemas.state_schema import CreateStateSchema, UpdateStateSchema, StateSchema, StateListSchema
 
-blp = Blueprint("state", "state", url_prefix="/states", description="State API")
+blp = Blueprint("state", "state", url_prefix="/api/states", description="State API")
 
 
 @blp.route("")
