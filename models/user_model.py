@@ -16,8 +16,8 @@ class UserModel(db.Model):
     park_reviews = db.relationship("ParkReviewModel", back_populates="user")
     activity_reviews = db.relationship("ActivityReviewModel", back_populates="user")
     parks = db.relationship("ParkModel", secondary="park_review", back_populates="users")
-    activities = db.relationship("ActivityModel", secondary="activity_review", back_populates="users")
-
+    activities = db.relationship("ActivityModel", secondary="activity_review", back_populates="users",
+                                 overlaps="activity,activity_reviews")
 
     def json(self):
         return {
