@@ -7,7 +7,7 @@ from models.park_review_model import ParkReviewModel
 from schemas.park_review_schema import CreateParkReviewSchema, UpdateParkReviewSchema, ParkReviewSchema, \
     ParkReviewListSchema
 
-blp = Blueprint("park_review", "park_review", url_prefix="/api/park_reviews", description="Park Review API")
+blp = Blueprint("park-review", "park-review", url_prefix="/api/park-reviews", description="Park Review API")
 
 
 @blp.route("")
@@ -60,3 +60,12 @@ class ParkReviewItem(MethodView):
             abort(404, message="Park review not found")
         park_review.delete_from_db()
         return
+
+@blp.route("/park/<int:park_id>")
+class ParkReviewByPark(MethodView):
+    @blp.response(status_code=200, schema=ParkReviewListSchema)
+    def get(self, park_id):
+        park_reviews = ParkReviewModel.find_by_park_id(park_id)
+        if not park_reviews:
+            abort(404, message="No reviews found for the specified park")
+        return {"park_reviews": park_reviews}

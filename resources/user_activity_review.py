@@ -6,7 +6,7 @@ from models.user_activity_review_model import UserActivityReviewModel
 from schemas.user_activity_review_schema import CreateUserActivityReviewSchema, UpdateUserActivityReviewSchema, \
     UserActivityReviewSchema, UserActivityReviewListSchema
 
-blp = Blueprint("user_activity_review", "user_activity_review", url_prefix="/api/user_activity_reviews",
+blp = Blueprint("user-activity-review", "user-activity-review", url_prefix="/api/user-activity-reviews",
                 description="User Activity Review API")
 
 
