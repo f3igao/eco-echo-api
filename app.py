@@ -5,6 +5,7 @@ from flask_cors import CORS
 from db import db
 from resources.activity import blp as ActivityBluePrint
 from resources.activity_review import blp as ActivityReviewBluePrint
+from resources.auth import blp as AuthBlueprint
 from resources.park import blp as ParkBluePrint
 from resources.park_review import blp as ParkReviewBlueprint
 from resources.state import blp as StateBlueprint
@@ -34,6 +35,7 @@ db.init_app(app)
 api = Api(app)
 
 api.register_blueprint(ActivityBluePrint)
+api.register_blueprint(AuthBlueprint)
 api.register_blueprint(ActivityReviewBluePrint)
 api.register_blueprint(ParkBluePrint)
 api.register_blueprint(ParkReviewBlueprint)
