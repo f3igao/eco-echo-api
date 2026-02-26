@@ -3,10 +3,10 @@ from datetime import datetime, timezone
 from flask import abort
 from flask.views import MethodView
 from flask_smorest import Blueprint
-from werkzeug.security import generate_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 
 from models.user_model import UserModel
-from schemas.user_schema import CreateUserSchema, UserSchema
+from schemas.user_schema import CreateUserSchema, LoginSchema, UserSchema
 
 blp = Blueprint("auth", "auth", url_prefix="/api/auth", description="Authentication API")
 
@@ -28,4 +28,15 @@ class Register(MethodView):
             updated_at=now,
         )
         user.save_to_db()
+        return user
+
+
+@blp.route("/login")
+class Login(MethodView):
+    @blp.arguments(LoginSchema)
+    @blp.response(status_code=200, schema=UserSchema)
+    def post(self, login_data):
+        user = UserModel.find_by_email(login_data["email"])
+        if not user or not check_password_hash(user.password, login_data["password"]):
+            abort(401, message="Invalid email or password.")
         return user
