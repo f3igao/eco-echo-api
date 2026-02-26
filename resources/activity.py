@@ -1,4 +1,4 @@
-from flask import abort
+from flask import abort, request
 from flask.views import MethodView
 from flask_smorest import Blueprint
 
@@ -15,7 +15,9 @@ blp = Blueprint("activity", "activity", url_prefix="/api/activities", descriptio
 class ActivityCollection(MethodView):
     @blp.response(status_code=200, schema=ActivityListSchema)
     def get(self):
-        activities = ActivityModel.find_all()
+        limit = request.args.get('limit', type=int)
+        offset = request.args.get('offset', 0, type=int)
+        activities = ActivityModel.find_all(limit=limit, offset=offset)
         return {"activities": activities}
 
     @blp.arguments(CreateActivitySchema)

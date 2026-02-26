@@ -1,5 +1,4 @@
-from flask import abort
-from flask import abort
+from flask import abort, request
 from flask.views import MethodView
 from flask_smorest import Blueprint
 
@@ -13,7 +12,9 @@ blp = Blueprint("park", "park", url_prefix="/api/parks", description="Park API")
 class ParkCollection(MethodView):
     @blp.response(status_code=200, schema=ParkListSchema)
     def get(self):
-        parks = ParkModel.find_all()
+        limit = request.args.get('limit', type=int)
+        offset = request.args.get('offset', 0, type=int)
+        parks = ParkModel.find_all(limit=limit, offset=offset)
         return {"parks": parks}
 
     @blp.arguments(CreateParkSchema)

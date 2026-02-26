@@ -36,7 +36,7 @@ class ParkReviewModel(db.Model):
 
     @classmethod
     def find_by_id(cls, park_review_id):
-        return cls.query.filter_by(park_review_id=park_review_id).first()
+        return db.session.get(cls, park_review_id)
 
     @classmethod
     def find_all(cls):

@@ -35,15 +35,18 @@ class ActivityModel(db.Model):
 
     @classmethod
     def find_by_id(cls, activity_id):
-        return cls.query.filter_by(activity_id=activity_id).first()
+        return db.session.get(cls, activity_id)
 
     @classmethod
     def find_by_name(cls, name):
         return cls.query.filter_by(name=name).first()
 
     @classmethod
-    def find_all(cls):
-        return cls.query.all()
+    def find_all(cls, limit: int | None = None, offset: int = 0):
+        query = cls.query.order_by(cls.name)
+        if limit is not None:
+            query = query.limit(limit).offset(offset)
+        return query.all()
 
     def update(self, name, description, duration, difficulty, require_special_equipment):
         self.name = name

@@ -34,7 +34,7 @@ class ActivityReviewModel(db.Model):
 
     @classmethod
     def find_by_id(cls, activity_review_id):
-        return cls.query.filter_by(activity_review_id=activity_review_id).first()
+        return db.session.get(cls, activity_review_id)
 
     @classmethod
     def find_all(cls):

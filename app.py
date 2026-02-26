@@ -24,6 +24,12 @@ class APIConfig:
     OPENAPI_REDOC_PATH = "/redoc"
     OPENAPI_REDOC_UI_URL = "https://cdn.redoc.ly/redoc/latest/bundles/redoc.standalone.js"
     SQLALCHEMY_DATABASE_URI = "mysql+pymysql://root:password@localhost/eco_echo"
+    SQLALCHEMY_ENGINE_OPTIONS = {
+        "pool_size": 10,
+        "max_overflow": 20,
+        "pool_recycle": 1800,  # recycle connections every 30 min (MySQL 8h idle timeout)
+        "pool_pre_ping": True,  # verify connection health before use
+    }
 
 
 app = Flask(__name__)

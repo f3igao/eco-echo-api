@@ -40,16 +40,18 @@ class ParkModel(db.Model):
 
     @classmethod
     def find_by_id(cls, park_id):
-        return cls.query.filter_by(park_id=park_id).first()
+        return db.session.get(cls, park_id)
 
     @classmethod
     def find_by_name(cls, name):
-        db.session.commit()
         return cls.query.filter_by(name=name).first()
 
     @classmethod
-    def find_all(cls):
-        return cls.query.all()
+    def find_all(cls, limit: int | None = None, offset: int = 0):
+        query = cls.query.order_by(cls.created_at.desc())
+        if limit is not None:
+            query = query.limit(limit).offset(offset)
+        return query.all()
 
     def save_to_db(self):
         db.session.add(self)
