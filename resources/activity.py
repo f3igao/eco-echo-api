@@ -42,6 +42,14 @@ class ActivityCollection(MethodView):
         return activity
 
 
+@blp.route("/park/<int:park_id>")
+class ActivityByPark(MethodView):
+    @blp.response(status_code=200, schema=ActivityListSchema)
+    def get(self, park_id):
+        activities = ActivityModel.find_by_park_id(park_id)
+        return {"activities": activities}
+
+
 @blp.route("/<int:activity_id>")
 class ActivityItem(MethodView):
     @blp.response(status_code=200, schema=ActivitySchema)

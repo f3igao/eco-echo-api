@@ -42,6 +42,10 @@ class ActivityModel(db.Model):
         return cls.query.filter_by(name=name).first()
 
     @classmethod
+    def find_by_park_id(cls, park_id):
+        return cls.query.filter_by(park_id=park_id).order_by(cls.name).all()
+
+    @classmethod
     def find_all(cls, limit: int | None = None, offset: int = 0):
         query = cls.query.order_by(cls.name)
         if limit is not None:
