@@ -25,7 +25,7 @@ class ParkCollection(MethodView):
         return new_park.json(), 201
 
 
-@blp.route("/parks/<int:park_id>")
+@blp.route("/<int:park_id>")
 class Park(MethodView):
     @blp.response(status_code=200, schema=ParkSchema)
     def get(self, park_id):

@@ -67,3 +67,11 @@ class ParkReviewByPark(MethodView):
     def get(self, park_id):
         park_reviews = ParkReviewModel.find_by_park_id(park_id)
         return {"park_reviews": park_reviews}
+
+
+@blp.route("/user/<int:user_id>")
+class ParkReviewByUser(MethodView):
+    @blp.response(status_code=200, schema=ParkReviewListSchema)
+    def get(self, user_id):
+        park_reviews = ParkReviewModel.find_by_user_id(user_id)
+        return {"park_reviews": park_reviews}

@@ -46,6 +46,10 @@ class ParkReviewModel(db.Model):
     def find_by_park_id(cls, park_id):
         return cls.query.filter_by(park_id=park_id).all()
 
+    @classmethod
+    def find_by_user_id(cls, user_id):
+        return cls.query.filter_by(user_id=user_id).all()
+
     def save_to_db(self):
         db.session.add(self)
         db.session.commit()
