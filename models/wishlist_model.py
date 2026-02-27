@@ -10,6 +10,9 @@ class WishlistModel(db.Model):
     user_id = db.Column(db.Integer, db.ForeignKey('user.user_id'), nullable=False)
     park_id = db.Column(db.Integer, db.ForeignKey('park.park_id'), nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
+    planned_date_start = db.Column(db.Date, nullable=True)
+    planned_date_end = db.Column(db.Date, nullable=True)
+    notes = db.Column(db.Text, nullable=True)
 
     user = db.relationship("UserModel", back_populates="wishlists")
     park = db.relationship("ParkModel", back_populates="wishlists")
@@ -20,6 +23,9 @@ class WishlistModel(db.Model):
             "user_id": self.user_id,
             "park_id": self.park_id,
             "created_at": self.created_at,
+            "planned_date_start": self.planned_date_start,
+            "planned_date_end": self.planned_date_end,
+            "notes": self.notes,
         }
 
     @classmethod

@@ -1,6 +1,7 @@
 from flask import Flask
 from flask_smorest import Api
 from flask_cors import CORS
+from flask_migrate import Migrate
 
 from db import db
 from resources.activity import blp as ActivityBluePrint
@@ -39,6 +40,7 @@ app.config.from_object(APIConfig)
 cors = CORS(app, origins="http://localhost:5173")
 
 db.init_app(app)
+migrate = Migrate(app, db)
 api = Api(app)
 
 api.register_blueprint(ActivityBluePrint)

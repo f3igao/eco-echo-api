@@ -5,7 +5,7 @@ from flask_smorest import Blueprint
 from models.wishlist_model import WishlistModel
 from models.park_model import ParkModel
 from models.user_model import UserModel
-from schemas.wishlist_schema import CreateWishlistSchema, WishlistSchema, WishlistListSchema
+from schemas.wishlist_schema import CreateWishlistSchema, UpdateWishlistSchema, WishlistSchema, WishlistListSchema
 
 blp = Blueprint("wishlist", "wishlist", url_prefix="/api/wishlists", description="Wishlist API")
 
@@ -48,6 +48,18 @@ class WishlistItem(MethodView):
         wishlist = WishlistModel.find_by_id(wishlist_id)
         if not wishlist:
             abort(404, message="Wishlist entry not found")
+        return wishlist
+
+    @blp.arguments(UpdateWishlistSchema)
+    @blp.response(status_code=200, schema=WishlistSchema)
+    def patch(self, update_data, wishlist_id):
+        wishlist = WishlistModel.find_by_id(wishlist_id)
+        if not wishlist:
+            abort(404, message="Wishlist entry not found")
+        wishlist.planned_date_start = update_data.get("planned_date_start")
+        wishlist.planned_date_end = update_data.get("planned_date_end")
+        wishlist.notes = update_data.get("notes")
+        wishlist.save_to_db()
         return wishlist
 
     @blp.response(status_code=204)
