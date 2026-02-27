@@ -22,7 +22,7 @@ class UpdateActivitySchema(CreateActivitySchema):
 
 
 class ActivitySchema(UpdateActivitySchema):
-    activity_id = fields.UUID()
+    activity_id = fields.Integer()
     created_at = fields.DateTime()
 
 

@@ -19,7 +19,7 @@ class UpdateParkSchema(CreateParkSchema):
 
 
 class ParkSchema(UpdateParkSchema):
-    park_id = fields.UUID()
+    park_id = fields.Integer()
     created_at = fields.DateTime()
 
 
