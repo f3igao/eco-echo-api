@@ -12,6 +12,7 @@ from resources.state import blp as StateBlueprint
 from resources.user import blp as UserBlueprint
 from resources.user_activity_review import blp as UserActivityReviewBlueprint
 from resources.user_activity_tag import blp as UserActivityTagBlueprint
+from resources.wishlist import blp as WishlistBlueprint
 
 
 class APIConfig:
@@ -49,3 +50,4 @@ api.register_blueprint(StateBlueprint)
 api.register_blueprint(UserBlueprint)
 api.register_blueprint(UserActivityReviewBlueprint)
 api.register_blueprint(UserActivityTagBlueprint)
+api.register_blueprint(WishlistBlueprint)

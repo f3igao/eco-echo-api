@@ -22,6 +22,7 @@ class ParkModel(db.Model):
     park_reviews = db.relationship("ParkReviewModel", back_populates="park")
     users = db.relationship("UserModel", secondary="park_review", back_populates="parks")
     states = db.relationship("StateModel", secondary="park_state", back_populates="parks")
+    wishlists = db.relationship("WishlistModel", back_populates="park")
 
     def json(self):
         return {

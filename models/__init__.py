@@ -7,3 +7,4 @@ from models.state_model import StateModel
 from models.user_activity_review_model import UserActivityReviewModel
 from models.user_activity_tag_model import UserActivityTagModel
 from models.user_model import UserModel
+from models.wishlist_model import WishlistModel
