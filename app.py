@@ -4,15 +4,11 @@ from flask_cors import CORS
 from flask_migrate import Migrate
 
 from db import db
-from resources.activity import blp as ActivityBluePrint
-from resources.activity_review import blp as ActivityReviewBluePrint
 from resources.auth import blp as AuthBlueprint
 from resources.park import blp as ParkBluePrint
 from resources.park_review import blp as ParkReviewBlueprint
 from resources.state import blp as StateBlueprint
 from resources.user import blp as UserBlueprint
-from resources.user_activity_review import blp as UserActivityReviewBlueprint
-from resources.user_activity_tag import blp as UserActivityTagBlueprint
 from resources.wishlist import blp as WishlistBlueprint
 
 
@@ -43,13 +39,9 @@ db.init_app(app)
 migrate = Migrate(app, db)
 api = Api(app)
 
-api.register_blueprint(ActivityBluePrint)
 api.register_blueprint(AuthBlueprint)
-api.register_blueprint(ActivityReviewBluePrint)
 api.register_blueprint(ParkBluePrint)
 api.register_blueprint(ParkReviewBlueprint)
 api.register_blueprint(StateBlueprint)
 api.register_blueprint(UserBlueprint)
-api.register_blueprint(UserActivityReviewBlueprint)
-api.register_blueprint(UserActivityTagBlueprint)
 api.register_blueprint(WishlistBlueprint)

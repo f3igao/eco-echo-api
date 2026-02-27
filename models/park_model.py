@@ -18,7 +18,6 @@ class ParkModel(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
     updated_at = db.Column(db.DateTime, default=datetime.now(timezone.utc), onupdate=datetime.now(timezone.utc))
 
-    activities = db.relationship("ActivityModel", back_populates="park")
     park_reviews = db.relationship("ParkReviewModel", back_populates="park")
     users = db.relationship("UserModel", secondary="park_review", back_populates="parks")
     states = db.relationship("StateModel", secondary="park_state", back_populates="parks")

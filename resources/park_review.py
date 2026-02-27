@@ -26,6 +26,7 @@ class ParkReviewCollection(MethodView):
             rating=park_review_data["rating"],
             visit_date=park_review_data["visit_date"],
             comment=park_review_data.get("comment"),
+            activities=park_review_data.get("activities"),
             media_url=park_review_data.get("media_url"),
             is_private=park_review_data["is_private"],
             created_at=park_review_data.get("created_at"),

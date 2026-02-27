@@ -12,6 +12,7 @@ class ParkReviewModel(db.Model):
     rating = db.Column(db.Float, nullable=False)
     visit_date = db.Column(db.Date, nullable=False)
     comment = db.Column(db.Text)
+    activities = db.Column(db.Text)
     media_url = db.Column(db.String(255))
     is_private = db.Column(db.Boolean, nullable=False)
     created_at = db.Column(db.DateTime, default=datetime.now(timezone.utc))
@@ -28,6 +29,7 @@ class ParkReviewModel(db.Model):
             "rating": self.rating,
             "visit_date": self.visit_date,
             "comment": self.comment,
+            "activities": self.activities,
             "media_url": self.media_url,
             "is_private": self.is_private,
             "created_at": self.created_at,
