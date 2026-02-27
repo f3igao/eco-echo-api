@@ -66,6 +66,4 @@ class ParkReviewByPark(MethodView):
     @blp.response(status_code=200, schema=ParkReviewListSchema)
     def get(self, park_id):
         park_reviews = ParkReviewModel.find_by_park_id(park_id)
-        if not park_reviews:
-            abort(404, message="No reviews found for the specified park")
         return {"park_reviews": park_reviews}

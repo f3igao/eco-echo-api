@@ -7,7 +7,7 @@ class CreateParkReviewSchema(Schema):
     rating = fields.Decimal(required=True)
     visit_date = fields.Date(required=True)
     comment = fields.Str(required=True)
-    media_url = fields.Str()
+    media_url = fields.Str(allow_none=True, load_default=None)
     is_private = fields.Boolean(required=True)
 
 

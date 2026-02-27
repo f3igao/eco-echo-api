@@ -6,7 +6,7 @@ class CreateActivityReviewSchema(Schema):
     activity_id = fields.Int()
     rating = fields.Decimal(required=True)
     comment = fields.Str(required=True)
-    media_url = fields.Str()
+    media_url = fields.Str(allow_none=True, load_default=None)
     is_private = fields.Boolean(required=True)
 
 
