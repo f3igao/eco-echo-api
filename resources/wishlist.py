@@ -2,6 +2,7 @@ from flask import abort, request
 from flask.views import MethodView
 from flask_smorest import Blueprint
 
+from models.follow_model import FollowModel
 from models.wishlist_model import WishlistModel
 from models.park_model import ParkModel
 from models.user_model import UserModel
@@ -75,8 +76,17 @@ class WishlistItem(MethodView):
 class WishlistByUser(MethodView):
     @blp.response(status_code=200, schema=WishlistListSchema)
     def get(self, user_id):
-        if not UserModel.find_by_id(user_id):
+        requester_id = request.args.get("requester_id", type=int)
+        target_user = UserModel.find_by_id(user_id)
+        if not target_user:
             abort(404, message=f"User with ID {user_id} not found")
+
+        if target_user.is_private:
+            if requester_id is None or (
+                requester_id != user_id and not FollowModel.find_by_ids(requester_id, user_id)
+            ):
+                abort(403, message="This account is private")
+
         wishlists = WishlistModel.find_by_user_id(user_id)
         return {"wishlists": wishlists}
 

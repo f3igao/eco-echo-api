@@ -1,3 +1,6 @@
+from models.follow_model import FollowModel
+from models.forum_comment_model import ForumCommentModel
+from models.forum_post_model import ForumPostModel
 from models.park_model import ParkModel
 from models.park_review_model import ParkReviewModel
 from models.park_state_model import ParkStateModel

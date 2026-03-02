@@ -5,6 +5,8 @@ from flask_migrate import Migrate
 
 from db import db
 from resources.auth import blp as AuthBlueprint
+from resources.follows import blp as FollowsBlueprint
+from resources.forum import blp as ForumBlueprint
 from resources.park import blp as ParkBluePrint
 from resources.park_review import blp as ParkReviewBlueprint
 from resources.state import blp as StateBlueprint
@@ -40,6 +42,8 @@ migrate = Migrate(app, db)
 api = Api(app)
 
 api.register_blueprint(AuthBlueprint)
+api.register_blueprint(FollowsBlueprint)
+api.register_blueprint(ForumBlueprint)
 api.register_blueprint(ParkBluePrint)
 api.register_blueprint(ParkReviewBlueprint)
 api.register_blueprint(StateBlueprint)

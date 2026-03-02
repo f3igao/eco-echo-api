@@ -21,6 +21,10 @@ class ParkReviewModel(db.Model):
     user = db.relationship("UserModel", back_populates="park_reviews")
     park = db.relationship("ParkModel", back_populates="park_reviews")
 
+    @property
+    def user_name(self):
+        return self.user.name if self.user else None
+
     def json(self):
         return {
             "park_review_id": self.park_review_id,

@@ -18,6 +18,7 @@ class UpdateParkReviewSchema(CreateParkReviewSchema):
 
 class ParkReviewSchema(UpdateParkReviewSchema):
     park_review_id = fields.Int()
+    user_name = fields.Str(dump_only=True)
 
 
 class ParkReviewListSchema(Schema):
